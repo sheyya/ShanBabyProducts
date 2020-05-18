@@ -8,6 +8,8 @@
         <div id="subheader">
             <div class="container">
                 <p>Welcome to Shan Baby Shop</p>
+
+
                 <?php
                 if (!isset($_SESSION['userEmail'])) {
                     echo '<a href="login.php">Login</a>';
@@ -17,7 +19,7 @@
                     echo '<a href="profile.php">Profile</a>';
                 }
                 ?>
-
+                
             </div>
         </div>
 
