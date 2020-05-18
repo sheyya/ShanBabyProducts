@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3308
--- Generation Time: Apr 10, 2020 at 05:50 PM
+-- Generation Time: May 18, 2020 at 11:20 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.12
 
@@ -35,7 +35,14 @@ CREATE TABLE IF NOT EXISTS `admin` (
   `adminPassword` varchar(50) NOT NULL,
   `adminUsername` varchar(50) NOT NULL,
   PRIMARY KEY (`adminID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `admin`
+--
+
+INSERT INTO `admin` (`adminID`, `adminName`, `adminPassword`, `adminUsername`) VALUES
+(1, 'sheyya', 'sheyya1234', 'adminSheyya');
 
 -- --------------------------------------------------------
 
@@ -63,13 +70,24 @@ CREATE TABLE IF NOT EXISTS `billinginfo` (
 
 DROP TABLE IF EXISTS `cart`;
 CREATE TABLE IF NOT EXISTS `cart` (
-  `cartID` int(11) NOT NULL AUTO_INCREMENT,
-  `numOfProducts` int(11) NOT NULL,
+  `cartID` int(10) NOT NULL AUTO_INCREMENT,
+  `userEmail` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `productID` int(11) NOT NULL,
+  `numOfProducts` int(11) NOT NULL,
   `totalPrice` int(11) NOT NULL,
   PRIMARY KEY (`cartID`),
   KEY `productID` (`productID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `cart`
+--
+
+INSERT INTO `cart` (`cartID`, `userEmail`, `productID`, `numOfProducts`, `totalPrice`) VALUES
+(40, 'sheyya@gmail.com', 5, 1, 10),
+(41, 'sheyya@gmail.com', 1, 10, 10000),
+(42, 'sheshan@gmail.com', 4, 1, 1),
+(43, 'sheshan@gmail.com', 1, 1, 1000);
 
 -- --------------------------------------------------------
 
@@ -84,7 +102,15 @@ CREATE TABLE IF NOT EXISTS `category` (
   `discription` varchar(250) NOT NULL,
   `imageLocation` varchar(1000) NOT NULL,
   PRIMARY KEY (`categoryID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`categoryID`, `categoryName`, `discription`, `imageLocation`) VALUES
+(1, 'Test1', 'Lorem Ipsum', ''),
+(2, 'Test2', 'Lorem Ipsum', '');
 
 -- --------------------------------------------------------
 
@@ -105,14 +131,15 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `password` varchar(50) NOT NULL,
   `city` varchar(50) NOT NULL,
   PRIMARY KEY (`customerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customer`
 --
 
 INSERT INTO `customer` (`customerID`, `firstName`, `lastName`, `email`, `address`, `country`, `postalCode`, `phone`, `password`, `city`) VALUES
-(46, 'sheshan', 'narada', 'sheshan@gmail.com', 'mahasen mw', 'Sri Lanka', '50000', '0766191256', '12345678', 'anuradhapura');
+(46, 'sheshan', 'narada', 'sheshan@gmail.com', 'mahasen mw', 'Sri Lanka', '50000', '0766191256', '12345678', 'anuradhapura'),
+(47, 'sheyya', 'narada', 'sheyya@gmail.com', 'bla blah blah', 'LK', '500000', '0828282374', 'ssssssss', 'balah');
 
 -- --------------------------------------------------------
 
@@ -167,7 +194,7 @@ CREATE TABLE IF NOT EXISTS `product` (
   `productID` int(11) NOT NULL AUTO_INCREMENT,
   `productName` varchar(200) NOT NULL,
   `quantity` int(11) NOT NULL,
-  `unitsOnOrder` int(11) NOT NULL,
+  `unitsOnOrder` int(11) NOT NULL DEFAULT '0',
   `unitPrice` int(6) NOT NULL,
   `description` varchar(1000) NOT NULL,
   `discount` int(5) NOT NULL,
@@ -177,7 +204,20 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`productID`),
   KEY `categoryID` (`categoryID`),
   KEY `adminID` (`adminID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`productID`, `productName`, `quantity`, `unitsOnOrder`, `unitPrice`, `description`, `discount`, `imageLocation`, `categoryID`, `adminID`) VALUES
+(1, 'Testing1', 10, 0, 1000, 'Lorem ipsum', 10, '01.jpg', 1, 1),
+(2, 'Testing2', 10, 0, 100000, 'sssss', 100, '02.jpg', 2, 1),
+(3, 'ss', 12, 0, 2, 'sws', 2, '03.jpg', 1, 1),
+(4, 'ss', 1, 0, 1, 'ede', 1, '04.jpg', 1, 1),
+(5, 'd', 10, 0, 10, 'sfjn', 10, '05.jpg', 1, 1),
+(6, '323ed', 33, 0, 33, 'esgsgs', 3, '06.jpg', 2, 1),
+(7, 'Clothes', 10, 0, 20, 'jjlliiiji', 0, '3664318.jpg', 2, 1);
 
 --
 -- Constraints for dumped tables
