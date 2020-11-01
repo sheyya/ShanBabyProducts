@@ -38,11 +38,11 @@ include("functions.php");
         </div>
     </div>
     <div class="product_desc" style="
-  padding: 20px;
-  margin: 50px;
-  display: table-row;
+        padding: 20px;
+        margin: 50px;
+        display: table-row;
 
-">
+        ">
         <?php
 
         if (!isset($_GET['cat'])) {
@@ -70,12 +70,16 @@ include("functions.php");
 
         ?>
     </div>
+
     <div class="products">
         <?php
         if (!isset($_GET['cat'])) {
+            add_cart();
             getPro();
         } ?>
     </div>
+
+    <?php require 'footer.php' ?>
 </body>
 
 </html>

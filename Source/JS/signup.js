@@ -152,6 +152,3 @@ function validateSignUp() {
   }
 }
 
-// function successful() {
-//   alert("You have scuessfully signed up. Login to continue!");
-// }

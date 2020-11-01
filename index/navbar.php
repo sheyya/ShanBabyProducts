@@ -15,10 +15,7 @@ if (isset($_SESSION['userEmail'])) {
 
 <head>
     <link href="../source/css/navbar.css" rel="stylesheet" type="text/css" />
-
 </head>
-
-
 <header>
     <div class="container">
 
@@ -27,11 +24,11 @@ if (isset($_SESSION['userEmail'])) {
         <nav style="display: table">
 
             <ul style="display: table-cell;">
-                <li><a href="#">Home</a></li>
+                <li><a href="index.php">Home</a></li>
                 <li><a href="products.php">Products</a></li>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="cart.php">Cart</a>
+                <li><a href="aboutus.php">About Us</a></li>
+                <li><a href="contactus.php">Contact Us</a></li>
+                <li><a href="showCart.php">Cart</a>
                     <?php echo $cart_qty; ?>
                 </li>
             </ul>

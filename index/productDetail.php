@@ -59,6 +59,7 @@ if (isset($_GET['pro_id'])) {
             </ul>
         </div>
     </div>
+
     <div class="tble" style="display: table;  padding-left: 40px; padding-top: 50px;">
         <div class="row" style="display: table-row;">
             <div class="img" style="
@@ -73,7 +74,7 @@ if (isset($_GET['pro_id'])) {
   box-shadow: 5px 5px 7px #cbcecf, -5px -5px 7px #ffffff; border-radius: 10px; ">
                     <h3 style="padding-bottom: 20px"> <?php echo $pro_title; ?></h3>
 
-                    <?php add_card(); ?>
+                    <?php add_cart(); ?>
 
                     <form method="post" action="productDetail.php?add_cart=<?php echo $product_id; ?>" class="form">
                         <label style="font-size: 18px;">Product Quantity</label><br><br>
@@ -91,6 +92,8 @@ if (isset($_GET['pro_id'])) {
             </div>
         </div>
     </div>
+
+    <?php require 'footer.php' ?>
 </body>
 
 </html>

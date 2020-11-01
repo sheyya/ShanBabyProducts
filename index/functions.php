@@ -195,7 +195,7 @@ function getpcatpro()
             
                 <a href='productDetail.php?pro_id=$pro_id'>
                 
-                    <img class='Pimg' src='../source/Images/product_images//$pro_img'>
+                    <img class='Pimg' src='../source/Images/product_images/$pro_img' >
                 
                 </a>
                 
@@ -213,7 +213,7 @@ function getpcatpro()
                     
                     <p class='price'>
                     
-                        $ $pro_price
+                        Rs. $pro_price
                     
                     </p>
                     
@@ -226,17 +226,10 @@ function getpcatpro()
                         </a>
                     
                         <a  class='button' href='productDetail.php?add_cart=$pro_id'>
-    
                              Add to Cart
-    
                         </a>
-                    
                     </p>
-                
                 </div>
-            
-            
-        
         </li>
         
         ";
@@ -251,7 +244,7 @@ function getpcatpro()
 
 //---------Function to add Products to cart------------//
 
-function add_card()
+function add_cart()
 {
     require("connection.php");
 
@@ -299,3 +292,342 @@ function add_card()
         }
     }
 }
+
+
+//---------Function to get Add Customers ------------//
+
+
+function addCustomer()
+{
+
+    require 'connection.php';
+
+    if (isset($_POST["create"])) {
+        $fname = $_POST["txtfName"];
+        $lname = $_POST["txtlName"];
+        $phone = $_POST["txtPhone"];
+        $email = $_POST["txtEmail"];
+        $address = $_POST["txtAddress"];
+        $city = $_POST["txtCity"];
+        $pw = $_POST["txtPassword"];
+        $postal = $_POST["txtPostal"];
+        $country = $_POST["txtCountry"];
+        $pw = $_POST["txtPassword"];
+
+
+        $sql = "INSERT INTO `customer` (`firstName`, `lastName`, `email`, `address`, `country`, `postalCode`, `phone`, `password`, `city`) VALUES ('" . $fname . "', '" . $lname . "', '" . $email . "', '" . $address . "', '" . $country . "', '" . $postal . "', '" . $phone . "', '" . $pw . "', '" . $city . "');";
+
+        mysqli_query($conn, $sql);
+
+        header('Location:login.php');
+    }
+}
+
+
+//---------Function to get cart items ------------// 
+
+function getItems()
+{
+
+    require("connection.php");
+
+    if (isset($_SESSION['userEmail'])) {
+
+        $userEmail = $_SESSION['userEmail'];
+        $get_items = "select * from cart where userEmail='$userEmail'";
+        $run_items = mysqli_query($conn, $get_items) or die(mysqli_error($conn));
+
+
+        while ($row_items = mysqli_fetch_array($run_items)) {
+
+            $pro_id = $row_items['productID'];
+
+            $cart_id = $row_items['cartID'];
+
+            $pro_qty = $row_items['numOfProducts'];
+
+            $pro_price = $row_items['totalPrice'];
+
+            $get_pdata = "select productName,imageLocation from product where productID='$pro_id'";
+
+            $run_pdata = mysqli_query($conn, $get_pdata) or die(mysqli_error($conn));
+
+            $row_pdata = mysqli_fetch_assoc($run_pdata);
+
+            $pro_img = $row_pdata['imageLocation'];
+
+            $pro_title = $row_pdata['productName'];
+
+
+            echo "<div class='itemBlock' style='margin: 0px 0px 10px 0px;'>
+                        <div class='table'>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='row'>
+                                <div class='img'>
+                                    <img src='../source/Images/product_images/$pro_img' width='100%' height='100'>
+                                </div>
+                                <div class='name'>
+                                    <p>$pro_title</p>
+                                </div>
+                                <div class='qty'>
+                                    <p>$pro_qty</p>
+                                </div>
+                                <div class='price'>
+                                    <p>RS:$pro_price</p>
+                                </div>
+                                <div class='remove'>
+                                <a href='component/cart_view_action.php?remove=$cart_id' name='remove' class='btn remove'><span style='font-size: 2em; color: Tomato;'>
+                                <i class='fas fa-minus-circle'></i>
+                              </span></a>
+                                </div>
+                            </div>
+                        </div>
+                        </div>";
+        }
+
+
+        // if (!empty($row_items)) {
+        //     echo "<div class='TotalBlock' style='margin: 0px 0px 10px 0px;'>
+        //                 <div class='table'>
+        //                     <div class='row' >
+        //                         <div class='temp'>
+        //                             <h3> No items in the Cart <h2>
+        //                         </div>
+        //                     </div>
+        //                 </div>
+        //             </div>";
+        // }
+
+
+        $get_sum = "SELECT SUM(totalPrice)
+        FROM cart
+        WHERE userEmail='$userEmail'";
+
+        $run_sum = mysqli_query($conn, $get_sum);
+        $sum = mysqli_fetch_array($run_sum);
+
+        if ($sum[0] == 0) {
+            $sum[0] = 0;
+        }
+
+        echo "<div class='TotalBlock' style='margin: 0px 0px 10px 0px;'>
+                        <div class='table'>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='col'></div>
+                            <div class='row' >
+                                <div class='temp'>
+                                    <p> <p>
+                                </div>
+                                <div class='temp'>
+                                    <p> </p>
+                                </div>
+                                <div class='total'>
+                                    <p><b>Total</b></p>
+                                </div>
+                                <div class='sum'>
+                                    <p>RS:$sum[0]</p>
+                                </div>
+                                <div class='removeall' >
+                                <a href='component/cart_view_action.php?removeall=$userEmail' name='removeall' class='btn removeall' alt='Remove all' title='Remove All'><i style='color:red; font-size: 1.5em;' class='fas fa-trash-alt'></i><br></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>";
+    }
+}
+
+
+
+
+
+//---------Function to get profile data and update profile ------------// 
+
+
+function getProfile()
+{
+
+    require("connection.php");
+
+    if (isset($_SESSION['userEmail'])) {
+
+        $userEmail = $_SESSION['userEmail'];
+        $get_cid = "select customerID from customer where email='$userEmail'";
+        $run_cid = mysqli_query($conn, $get_cid) or die(mysqli_error($conn));
+        $row_cid = mysqli_fetch_array($run_cid);
+
+        $get_items = "select * from customer where customerID ='$row_cid[0]'";
+        $run_items = mysqli_query($conn, $get_items) or die(mysqli_error($conn));
+
+
+        $row_items = mysqli_fetch_assoc($run_items);
+
+        $customer_id = $row_items['customerID'];
+
+        $f_name = $row_items['firstName'];
+
+        $l_name = $row_items['lastName'];
+
+        $addr = $row_items['address'];
+
+        $country = $row_items['country'];
+
+        $postal = $row_items['postalCode'];
+
+        $number = $row_items['phone'];
+
+        $city = $row_items['city'];
+
+        $pass = $row_items['password'];
+
+        // $get_pdata = "select productName,imageLocation from product where productID='$pro_id'";
+
+        // $run_pdata = mysqli_query($conn, $get_pdata) or die(mysqli_error($conn));
+
+        // $row_pdata = mysqli_fetch_assoc($run_pdata);
+
+        // $pro_img = $row_pdata['imageLocation'];
+
+        // $pro_title = $row_pdata['productName'];
+
+
+        echo "
+        
+        <form id='form1' name='form1' method='post' action='customerProfile.php?edit=$customer_id' onsubmit='return validateUpdate()'>
+            <div id='form'>
+              <p class='formLable'>First Name</p>
+              <input class='inputField' type='text' name='txtfName' id='txtfName' placeholder='$f_name' /><br>
+              <p class='formLable'>Last Name</p>
+              <input class='inputField' type='text' name='txtlName' id='txtlName' placeholder='$l_name'/><br>
+              <p class='formLable'>Phone Number</p>
+              <input class='inputField' type='text' name='txtPhone' id='txtPhone' placeholder='$number'/><br>
+              <p class='formLable'>Address</p>
+              <input class='inputField' type='text' name='txtAddress' id='txtAddress' placeholder='$addr'/><br>
+              <p class='formLable'>City</p>
+              <input class='inputField' type='text' name='txtCity' id='txtCity' placeholder='$city'/><br>
+              <p class='formLable'>Postal Code</p>
+              <input class='inputField' type='text' name='txtPostal' id='txtPostal' placeholder='$postal' /><br>
+              <p class='formLable'>Country</p>
+              <input class='inputField' type='text' name='txtCountry' id='txtCountry' placeholder='$country' /><br>
+              <p class='formLable'>Email</p>
+              <input class='inputField' type='text' name='txtEmail' id='txtEmail' placeholder='$userEmail'/><br>
+              <p class='formLable'>Current Password</p>
+              <input class='inputField' type='password' name='txtCPassword' id='txtPassword' /><br>
+              <p class='formLable'>New Passsword</p>
+              <input class='inputField' type='password' name='txtNPassword' id='txtCPassword' /><br>
+        
+              <input id='btnSubmit' type='submit' name='update' value='Update' />
+        
+            </div>
+          </form>
+          
+";
+    }
+
+
+
+
+    // <div id='errors'>
+    //   <label id='fnameErro'></label>
+    //   <label id='lnameErro'></label>
+    //   <label id='phoneErro'></label>
+    //   <label id='addrErro'></label>
+    //   <label id='cityErro'></label>
+    //   <label id='countryErro'></label>
+    //   <label id='postalErro'></label>
+    //   <label id='emailErro'></label>
+    //   <label id='CpwdErro'></label>
+    //   <label id='NPwdErro'></label>
+    // </div>
+
+
+
+
+    // if (!empty($row_items)) {
+    //     echo "<div class='TotalBlock' style='margin: 0px 0px 10px 0px;'>
+    //                 <div class='table'>
+    //                     <div class='row' >
+    //                         <div class='temp'>
+    //                             <h3> No items in the Cart <h2>
+    //                         </div>
+    //                     </div>
+    //                 </div>
+    //             </div>";
+    // }
+
+
+
+    if (isset($_POST['update'])) {
+
+        $cid = $_GET['edit'];
+        if (!empty($_POST["txtfName"])) {
+            $f_name = $_POST["txtfName"];
+        }
+        if (!empty($_POST["txtlName"])) {
+            $l_name = $_POST["txtlName"];
+        }
+
+        if (!empty($_POST["txtPhone"])) {
+            $number = $_POST["txtPhone"];
+        }
+
+        if (!empty($_POST["txtEmail"])) {
+            $userEmail = $_POST["txtEmail"];
+        }
+
+        if (!empty($_POST["txtAddress"])) {
+            $addr = $_POST["txtAddress"];
+        }
+
+        if (!empty($_POST["txtCity"])) {
+            $city = $_POST["txtCity"];
+        }
+
+        if (!empty($_POST["txtPostal"])) {
+            $postal = $_POST["txtPostal"];
+        }
+
+        if (!empty($_POST["txtCountry"])) {
+            $country = $_POST["txtCountry"];
+        }
+
+        // if (!empty($_POST["txtCPassword"])) {
+        $cpw = $_POST["txtCPassword"];
+
+        if (!empty($_POST["txtNPassword"])) {
+            $npw = $_POST["txtNPassword"];
+        } else {
+            $npw = $cpw;
+        }
+
+
+        // echo "<script src='../source/JS/profileUpdate.js'>validateUpdate()</script>";
+
+
+        if (!($cpw == $pass)) {
+            $npw = $cpw;
+            echo "<script>alert('Incorrect Password: Enter Correct Password to update')</script>";
+        } else {
+
+            $query = mysqli_query($conn, "update customer set firstName='$f_name', lastName='$l_name', email='$userEmail', address='$addr', country='$country', postalCode='$postal', phone='$number', password='$npw', city='$city' where customerID='$cid'");
+
+            if ($query) {
+                echo "<script>alert('Profile has been Update sucessfully')</script>";
+                echo "<script>window.open('customerProfile.php','_self')</script>";
+            } else {
+                echo ("Error description: " . mysqli_error($conn));
+            }
+        }
+    }
+}
+
+
+
+
+?>

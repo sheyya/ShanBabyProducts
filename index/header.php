@@ -9,6 +9,7 @@
             <div class="container">
                 <p>Welcome to Shan Baby Shop</p>
 
+                <a href="adminLogin.php">Admin Log</a>
 
                 <?php
                 if (!isset($_SESSION['userEmail'])) {
@@ -16,10 +17,10 @@
                     echo '<a href="signUp.php">Sign Up</a>';
                 } else {
                     echo '<a href="logout.php">Logout</a>';
-                    echo '<a href="profile.php">Profile</a>';
+                    echo '<a href="customerprofile.php">Profile</a>';
                 }
                 ?>
-                
+
             </div>
         </div>
 

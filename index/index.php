@@ -8,13 +8,14 @@ include("functions.php"); ?>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shan Baby Products</title>
   <link href="../source/css/style.css" rel="stylesheet" type="text/css" />
-  <link href="../source/css/styleProduct.css" rel="stylesheet" type="text/css" />
+  <link href="../source/css/styleProduct.css?version=51" rel="stylesheet" type="text/css" />
 
   <link href="../source/css/imgSlider.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
   <?php require 'header.php' ?>
+
   <?php require 'navbar.php' ?>
   <div id="slider">
     <figure>
@@ -39,6 +40,7 @@ include("functions.php"); ?>
     <p>Our Latest Products</p>
   </div>
   <?php getPro(); ?>
+  <?php require 'footer.php' ?>
 </body>
 
 </html>

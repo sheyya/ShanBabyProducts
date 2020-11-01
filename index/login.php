@@ -45,7 +45,7 @@ if (!isset($_SESSION["loginerror"])) {
 
     <div id="signupContainer">
         <div id="title">
-            <h2>Login</h2>
+            <h2 style="color: red;;">Login</h2>
             <p>If you don't have an account <a href="signUp.php">Sign Up</a></p>
         </div>
 

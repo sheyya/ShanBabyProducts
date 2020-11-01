@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start();
+include('functions.php') ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,7 +21,8 @@
     <h2>Sign Up</h2>
     <p>If you already have an account <a href="login.php">Login</a></p>
   </div>
-  <form id="form1" name="form1" method="post" action="addCustomer.php" onsubmit="return validateSignUp()">
+  <?php addCustomer() ?>
+  <form id="form1" name="form1" method="post" action="signUp.php" onsubmit="return validateSignUp()">
     <div id="form">
       <p class="formLable">First Name</p>
       <input class="inputField" type="text" name="txtfName" id="txtfName" /><br>

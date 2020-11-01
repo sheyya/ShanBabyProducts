@@ -125,3 +125,101 @@ body {
   margin-top: -40px;
   font-weight: bold;
 }
+
+/*logo-end*/
+.mainheader {
+  position: absolute;
+  margin-left: 40%;
+  margin-top: 30px;
+}
+
+/*loginBox-start*/
+h2 {
+  text-align: center;
+}
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+.login-box {
+  margin: 50px auto;
+  width: 600px;
+  height: 900px;
+  background: turquoise;
+  color: #fff;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  box-sizing: border-box;
+  padding: 70px 30px;
+  box-shadow: 5px 5px 13px #cbcecf, -5px -5px 10px #ffffff;
+  text-align: center;
+  padding: 5px 5px 25px 5px;
+  border-radius: 10px;
+  margin-top: 80px;
+}
+.login-box p {
+  margin-left: 50px;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  font-family: "Times New Roman", Times, serif;
+}
+.login-box input[type="text"],
+input[type="file"],
+select,
+textarea {
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  height: 35px;
+  width: 250px;
+  color: black;
+  font-size: 16px;
+  background-color: #e7e7e9;
+  margin-top: 15px;
+  box-shadow: 2px 2px 5px #cbcecf, -1px -1px 5px #9bf0db,
+    inset 2px 2px 3px rgba(0, 0, 0, 0.2), inset -2px -2px 3px #ffffff85;
+  padding-left: 8px;
+  padding-right: 8px;
+  border: 0px;
+}
+
+.login-box select {
+  height: 35px;
+  width: 265px;
+}
+.login-box textarea {
+  height: 80px;
+  width: 250px;
+}
+.login-box input[type="submit"] {
+  outline: none;
+  height: 40px;
+  width: 200px;
+  font-size: 18px;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #4caf50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  cursor: pointer;
+  opacity: 0.9;
+  margin-top: 50px;
+  margin-bottom: 5px;
+  padding: 2px 2px 2px 2px;
+  margin-left: 30%;
+  border: none;
+  text-align: center;
+  transition: all 0.5s;
+}
+.login-box input[type="submit"]:hover {
+  cursor: pointer;
+  background: #046113;
+  color: #000;
+  opacity: 1;
+}
+/*loginBox-end*/
+

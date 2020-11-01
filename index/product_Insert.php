@@ -2,6 +2,16 @@
 require("connection.php");
 ?>
 
+<!-- check if there is an admin session -->
+<?php
+if (!isset($_SESSION['adminsUsername'])) {
+    echo "<script>alert('You Have to be an admin and login first')</script>";
+    echo "<script>window.open('adminLogin.php','_self')</script>";
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,21 +26,11 @@ require("connection.php");
 </head>
 
 <body>
-    <div id="wrapper">
-        <div id="header">
-            <div id="subheader">
-                <div class="container">
-                    <p>Admin Dashboard > Insert Prducts</p>
-                    <?php
-                    if (isset($_SESSION['adminsUsername'])) {
-                        echo '<a href="logout.php">Logout</a>';
-                        echo '<a href="dashboard.php">Dashboard</a>';
-                    }
-                    ?>
-                </div>
-            </div>
-        </div>
-    </div>
+    <!-- start Navbar Area -->
+    <?php require "include/admin_header.php" ?>
+    <!-- end Navbar Area -->
+    <h1 style="text-align:center;">Add New Product</h1>
+
 
     <div class="insertProduct">
         <div class="title">
@@ -43,7 +43,7 @@ require("connection.php");
             </div>
             <div class="form-group">
                 <label>Product Category</label>
-                <select name="product_cat" class="form-control">
+                <select name="product_cat" class="form-control" style="width:53%">
 
                     <option> Select a Category Product </option>
 
@@ -82,7 +82,8 @@ require("connection.php");
             </div>
             <div class="form-group">
                 <label>Product Image</label>
-                <input name="product_img1" type="file" style="margin-left: -110px" required>
+                <input name="product_img1" style="width:50%" type="file" style="margin-left: -110px" required>
+                <p align='right' style="padding-right:60px; font-size:15px;">Image size should be 1280x720</p>
             </div>
             <div class="form-group">
                 <label>Product Description</label>
@@ -123,7 +124,7 @@ if (isset($_POST['submit'])) {
     if ($run_product) {
 
         echo "<script>alert('Product has been inserted sucessfully')</script>";
-        echo "<script>window.open('insertProducts.php','_self')</script>";
+        echo "<script>window.open('product_insert.php','_self')</script>";
     }
 }
 

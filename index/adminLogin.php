@@ -16,6 +16,11 @@ if (!isset($_SESSION["adminLoginerror"])) {
 
 <body>
 
+    <!-- show page header -->
+
+    <?php require 'header.php' ?>
+
+    <!-- admin login -->
     <div>
         <?php
         require 'connection.php';
@@ -30,7 +35,7 @@ if (!isset($_SESSION["adminLoginerror"])) {
 
             if (mysqli_num_rows($result) > 0) {
                 $_SESSION["adminsUsername"] = $username;
-                header('Location:insertProducts.php');
+                header('Location:product_dashboard.php');
                 mysqli_close($conn);
             } else {
                 $_SESSION["adminLoginerror"] = "Username or Password Does not match";
